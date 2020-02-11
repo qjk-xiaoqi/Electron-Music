@@ -1,10 +1,11 @@
 const {app, BrowserWindow,ipcMain,dialog} = require('electron');
-const Store = require('electron-store');
-const store = new Store();
-store.set('hhh', 'xiao');
+const musicStore = require('./renderer/musicStore.js');
+
+const store = new musicStore();
+ 
 // 程序存放的路径
-console.log(app.getPath('userData'));
-console.log(store.get('hhh'));
+// console.log(app.getPath('userData'));
+ 
 
 // 封装一个创建窗口的类（代码复用）
 class AddWindow extends BrowserWindow {
@@ -48,12 +49,23 @@ app.on('ready', () => {
             ]
         }).then((files) => {
             // 如果文件存在，传入文件路径，并通知add.js中展示音乐列表
-            console.log(files);
              if(files) {
                 event.sender.send('show-list',files.filePaths);
              }
         }).catch(() => {
             console.log('error');
+        })
+    });
+
+    ipcMain.on('import-musicData', (event, data)=>{
+       const updata = store.addData(data).getData();
+        console.log(updata);
+    });
+    ipcMain.on('notData',()=>{
+        dialog.showMessageBox({
+            type: "info",
+            title: '提示',
+            message: '请选择要导出的音乐文件'
         })
     })
 })
