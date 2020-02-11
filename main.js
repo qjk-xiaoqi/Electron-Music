@@ -32,7 +32,7 @@ app.on('ready', () => {
             parent:mainWindow
         },'./renderer/add.html' );
     });
-    ipcMain.on('open-music-dialog', ()=>{
+    ipcMain.on('open-music-dialog', (event)=>{
         dialog.showOpenDialog({
             // 允许选择文件、允许多选
             properties: ['openFile', 'multiSelections'],
@@ -41,7 +41,11 @@ app.on('ready', () => {
                 {name: 'Music', extensions:['mp3']}
             ]
         }).then((files) => {
+            // 如果文件存在，传入文件路径，并通知add.js中展示音乐列表
             console.log(files);
+             if(files) {
+                event.sender.send('show-list',files.filePaths);
+             }
         }).catch(() => {
             console.log('error');
         })
