@@ -1,4 +1,4 @@
-const {app, BrowserWindow,ipcMain} = require('electron');
+const {app, BrowserWindow,ipcMain,dialog} = require('electron');
 
 // 封装一个创建窗口的类（代码复用）
 class AddWindow extends BrowserWindow {
@@ -31,5 +31,19 @@ app.on('ready', () => {
             height: 400, 
             parent:mainWindow
         },'./renderer/add.html' );
+    });
+    ipcMain.on('open-music-dialog', ()=>{
+        dialog.showOpenDialog({
+            // 允许选择文件、允许多选
+            properties: ['openFile', 'multiSelections'],
+            // 指定可选文类型的数组
+            filters: [
+                {name: 'Music', extensions:['mp3']}
+            ]
+        }).then((files) => {
+            console.log(files);
+        }).catch(() => {
+            console.log('error');
+        })
     })
 })
