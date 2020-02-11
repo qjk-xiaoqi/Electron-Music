@@ -23,6 +23,6 @@ const renderList = (pathes)=>{
     const musicListHtml = pathes.reduce((pre, cur)=>{ 
         pre += `<li class="list-group-item">${path.basename(cur)}</li>`;
         return pre;
-    }, '')// 初始值为''
+    }, '')  // 初始值为''
     $('music-list').innerHTML = `<ul class="list-group">${musicListHtml}</ul>`;
 }

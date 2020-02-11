@@ -1,4 +1,10 @@
 const {app, BrowserWindow,ipcMain,dialog} = require('electron');
+const Store = require('electron-store');
+const store = new Store();
+store.set('hhh', 'xiao');
+// 程序存放的路径
+console.log(app.getPath('userData'));
+console.log(store.get('hhh'));
 
 // 封装一个创建窗口的类（代码复用）
 class AddWindow extends BrowserWindow {
@@ -10,7 +16,7 @@ class AddWindow extends BrowserWindow {
             nodeIntegration: true
             }
         }
-         // 最终的Config  
+        // 最终的Config  
         const finallConfig = Object.assign(baseConfig, config)
         // 也可以这样写： const finallConfig = {...baseConfig, ...config}
         // 调用父类的方法，即创建一个窗口

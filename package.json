@@ -14,5 +14,6 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "electron-store": "^5.1.0"
   }
 }
