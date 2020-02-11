@@ -24,4 +24,7 @@
 
 ## 第六次提交
 + 数据持久化，（electron-store）可以将数据存在本地的文件中
-+ app.getPath('userData') 得到文件存放的路径  
++ app.getPath('userData') 得到文件存放的路径
+
+## 第七次提交
++ 封装自己的musicStore类, 实现音乐文件的持久化保存。
