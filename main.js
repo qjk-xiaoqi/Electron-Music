@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow,ipcMain} = require('electron');
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: 800,
@@ -8,4 +8,14 @@ app.on('ready', () => {
         }
     });
     mainWindow.loadFile('./renderer/index.html');
+    ipcMain.on('add-music',()=>{
+        const addWindow = new BrowserWindow({
+            width: 600,
+            height: 400,
+            webPreferences:{
+                nodeIntegration: true
+            }
+        });
+        addWindow.loadFile('./renderer/add.html');
+    })
 })
