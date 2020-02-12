@@ -1,0 +1,10 @@
+.musicLi{
+    margin:0;
+}
+
+/* 优化图标 */
+.music-list .fa-play:hover,
+.music-list .fa-trash:hover {
+    cursor: pointer;
+}
+
