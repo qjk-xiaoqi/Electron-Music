@@ -1,7 +1,9 @@
-.musicLi{
+.row{
     margin:0;
 }
-
+.title {
+    font-size:25px;
+}
 /* 优化图标 */
 .music-list .fa-play:hover,
 .music-list .fa-pause:hover,

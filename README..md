@@ -2,6 +2,10 @@
 
 ## 使用技术 electron、bootstrap、原生js
 
+## 运行
++ num install
++ num start
+
 ## 第一次提交
 + 构建整体目录  main.js -- 主进程、renderer目录 -- 渲染进程、index.html -- 主窗口、  add.html -- 添加歌曲窗口 
 + 完成主窗口

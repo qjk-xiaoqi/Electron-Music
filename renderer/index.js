@@ -1,6 +1,7 @@
 // 向主进程发消息： 点击添加音乐按钮后创建添加音乐窗口
 const {ipcRenderer} = require('electron');
 const {$} = require('./helper.js');
+const {convertTimer} = require('./helper.js');
 let allFiles; // 导入的所有的音乐文件
 let targetMusic;
 let audio = new Audio();
@@ -56,18 +57,23 @@ audio.addEventListener('loadedmetadata',()=>{
     renderPlay(targetMusic[0].filename, audio.duration);
 });
 audio.addEventListener('timeupdate',()=>{
-    $('currentTime').innerHTML = audio.currentTime;
+    // 将当前时间转为正确的格式
+    $('currentTime').innerHTML = convertTimer(audio.currentTime);
+    // 计算进度条
+    const progress = Math.floor(audio.currentTime / audio.duration *100);
+    $('bar').innerHTML = progress + '%';
+    bar.style.width = progress + '%';
 });
 
 
 // 渲染播放器状态函数
 const renderPlay = (musicName, duration) =>{
-    const playHtml = `<div class="col-8 font-weight-bold">
-                        正在播放：${musicName}    
+    const playHtml = `<div class="col-9 font-weight-bold">
+                    Playing：${musicName}    
                     </div>
-                    <div class="col-4"> 
+                    <div class="col-3"> 
                         <span id="currentTime">00:00</span>
-                        <span class="duration">/${duration}</span>
+                        <span class="duration">/${convertTimer(duration)}</span>
                     </div>`
     $('playStatus').innerHTML = playHtml;
 }
@@ -87,6 +93,6 @@ const renderList = (musicData) => {
         </li>`;
         return pre;
     },'')
-    const emptyHtml = `<div class="empty">当前没有任何歌曲</div>`;
+    const emptyHtml = `<div class="empty">You don't have any music right now </div>`;
     $('musicList').innerHTML = musicData.length === 0 ? emptyHtml :`<ul class="list-group"> ${renderHtml}</ul>`;
 }

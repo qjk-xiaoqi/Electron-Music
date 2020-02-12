@@ -11,13 +11,18 @@
 <body>
     <!-- 使用一个大banner包裹 -->
     <div class="container mt-4">
-        <h1>小柒的musicPlay</h1>
-        <button type="button"  id="add-music" class="btn btn-primary btn-lg btn-block mt-4" >添加歌曲到曲库</button>
+        <h1 class="title">xiaoqi's audio player</h1>
+        <button type="button"  id="add-music" class="btn btn-primary btn-lg btn-block mt-4" >Add music</button>
         <div id="musicList" class="music-list mt-4"></div>
-        <div class="fixed-bottom">
+        <div class=" container fixed-bottom ">
             <hr/>
-            <div  id="playStatus" class="row "></div>
+            <div  id="playStatus" class="row mt-2 b-4"></div>
+             <!-- 进度条 bootStrap自带 -->
+            <div class="progress my-4" >
+                <div id="bar" class="progress-bar bg-primary" role="progressbar" style="width:0%;"></div>
+            </div>
         </div>
+       
     </div>
 </body>
 </html>
