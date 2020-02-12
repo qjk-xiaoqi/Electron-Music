@@ -33,7 +33,9 @@ $('import-music').addEventListener("click",() =>{
 const renderList = (Files)=>{
     // 使用reduce函数来叠加
     const musicListHtml = Files.reduce((pre, cur)=>{ 
-        pre += `<li class="list-group-item">${path.basename(cur)}</li>`;
+        pre += `<li class="list-group-item">
+        <i class="fas fa-music mr-4"></i>
+            ${path.basename(cur)}</li>`;
         return pre;
     }, '')  // 初始值为''
     $('music-list').innerHTML = `<ul class="list-group">${musicListHtml}</ul>`;

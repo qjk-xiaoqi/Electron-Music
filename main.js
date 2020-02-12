@@ -32,6 +32,11 @@ class AddWindow extends BrowserWindow {
 }
 app.on('ready', () => {
     const mainWindow = new AddWindow({}, './renderer/index.html');
+    // 当导航完成时发出事件，onload 事件也完成.
+    mainWindow.webContents.on('did-finish-load', () => {
+        // console.log(store.getData());
+        mainWindow.send('renderList', store.getData());
+    })
     ipcMain.on('add-music',()=>{
         const addWindow = new AddWindow({
             width: 600,
@@ -57,9 +62,10 @@ app.on('ready', () => {
         })
     });
 
+    // 监听导入音乐事件
     ipcMain.on('import-musicData', (event, data)=>{
-       const updata = store.addData(data).getData();
-        console.log(updata);
+       const updataMusic = store.addData(data).getData();
+       mainWindow.send('renderList', updataMusic )
     });
     ipcMain.on('notData',()=>{
         dialog.showMessageBox({
