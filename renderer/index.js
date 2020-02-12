@@ -23,12 +23,30 @@ $('musicList').addEventListener('click', (event)=>{
     const curId = event.target.dataset.id;
     const classList = event.target.classList;
     if(curId && classList.contains('fa-play')){ 
-        // 找出音乐文件中id与当前点击目标id一致的音乐文件
-        targetMusic = allFiles.filter((item)=>{
-            return item.id == curId;
-        })  
-        audio.src = targetMusic[0].path;
-        audio.play();
+        // 如果是当前点击过的音乐，就接着播放
+        if( targetMusic && targetMusic[0].id == curId){
+            audio.play();
+        }else{
+             // 否则找出音乐文件中id与当前点击目标id一致的音乐文件
+            targetMusic = allFiles.filter((item)=>{
+                return item.id == curId;
+            })  
+             audio.src = targetMusic[0].path;
+             audio.play();
+             // 点击新歌，要还原之前歌曲的图标
+             const otherMusic = document.querySelector('.fa-pause'); //  querySelector() 方法仅仅返回匹配指定选择器的第一个元素
+             if(otherMusic){
+                otherMusic.classList.replace('fa-pause','fa-play');
+             }
+
+        }
+        // 换图标
+        classList.replace('fa-play','fa-pause');
+    }else if(curId && classList.contains('fa-pause')){ 
+        audio.pause();
+        classList.replace('fa-pause','fa-play');
+    }else if(curId && classList.contains('fa-trash')){ 
+         ipcRenderer.send('delete-music', curId);
     }
 })
 

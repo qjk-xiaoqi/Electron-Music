@@ -36,6 +36,12 @@ class MusicStore extends Store {
         this.musicData = [...this.musicData, ...newMusic];
         return this.saveData()
     }
+    delData(id) {
+        this.musicData = this.musicData.filter((item)=>{
+           return  item.id !== id;
+        })
+        return this.saveData();
+    }
 }
 
 module.exports = MusicStore;

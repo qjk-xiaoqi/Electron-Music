@@ -73,5 +73,12 @@ app.on('ready', () => {
             title: '提示',
             message: '请选择要导出的音乐文件'
         })
+    });
+    // 监听删除音乐事件
+    ipcMain.on('delete-music',(event,data) => {
+        const updataMusic = store.delData(data).getData();
+        mainWindow.send('renderList', updataMusic )
     })
 })
+
+ 

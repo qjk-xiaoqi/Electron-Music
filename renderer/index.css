@@ -4,6 +4,7 @@
 
 /* 优化图标 */
 .music-list .fa-play:hover,
+.music-list .fa-pause:hover,
 .music-list .fa-trash:hover {
     cursor: pointer;
 }
