@@ -4,6 +4,7 @@ const {$} = require('./helper.js');
 let allFiles; // 导入的所有的音乐文件
 let targetMusic;
 let audio = new Audio();
+ 
 // 点击添加按钮,通知主进程创建添加音乐的窗口
  $('add-music').addEventListener("click",() =>{
     ipcRenderer.send('add-music');
@@ -50,9 +51,26 @@ $('musicList').addEventListener('click', (event)=>{
     }
 })
 
+// 渲染播放器的状态
+audio.addEventListener('loadedmetadata',()=>{
+    renderPlay(targetMusic[0].filename, audio.duration);
+});
+audio.addEventListener('timeupdate',()=>{
+    $('currentTime').innerHTML = audio.currentTime;
+});
 
 
-
+// 渲染播放器状态函数
+const renderPlay = (musicName, duration) =>{
+    const playHtml = `<div class="col-8 font-weight-bold">
+                        正在播放：${musicName}    
+                    </div>
+                    <div class="col-4"> 
+                        <span id="currentTime">00:00</span>
+                        <span class="duration">/${duration}</span>
+                    </div>`
+    $('playStatus').innerHTML = playHtml;
+}
 
 // 渲染列表函数
 const renderList = (musicData) => {
