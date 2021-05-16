@@ -1,13 +1,12 @@
-.row{
-    margin:0;
+.row {
+  margin: 0;
 }
 .title {
-    font-size:25px;
+  font-size: 25px;
 }
 /* 优化图标 */
 .music-list .fa-play:hover,
 .music-list .fa-pause:hover,
 .music-list .fa-trash:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-
